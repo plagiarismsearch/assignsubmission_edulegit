@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/assign/submission/edulegit/db" VERSION="2024090901" COMMENT="XMLDB file for Moodle mod/assign/submission/edulegit"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="assignsubmission_edulegit" COMMENT="Info about Edulegit submission">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="assignment" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="submission" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Document title"/>
+        <FIELD NAME="content" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Last Html content"/>
+        <FIELD NAME="document_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Document id"/>
+        <FIELD NAME="task_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Task id"/>
+        <FIELD NAME="task_user_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="User task id"/>
+        <FIELD NAME="user_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Task id"/>
+        <FIELD NAME="user_key" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="User time token key"/>
+        <FIELD NAME="base_url" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Base URL"/>
+        <FIELD NAME="url" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Document view URL"/>
+        <FIELD NAME="auth_key" TYPE="char" LENGTH="64" NOTNULL="false" SEQUENCE="false" COMMENT="Document key"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="EduLegit score"/>
+        <FIELD NAME="plagiarism" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="Percentage of plagiarism detected"/>
+        <FIELD NAME="ai_rate" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="The total percentage of AI generated passages in the text"/>
+        <FIELD NAME="ai_probability" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="The percentage of likelihood that the whole text was AI generated"/>
+        <FIELD NAME="status" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
+        <FIELD NAME="error" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Same error for user"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" SEQUENCE="false" NOTNULL="true" DEFAULT="0" />
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" SEQUENCE="false" NOTNULL="true" DEFAULT="0" />
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="The unique id for this submission."/>
+        <KEY NAME="assignment" TYPE="foreign" FIELDS="assignment" REFTABLE="assign" REFFIELDS="id" COMMENT="The assignment instance this submission relates to."/>
+        <KEY NAME="submission" TYPE="foreign" FIELDS="submission" REFTABLE="assign_submission" REFFIELDS="id" COMMENT="The submission this submission relates to."/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
