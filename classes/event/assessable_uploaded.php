@@ -25,6 +25,8 @@
 
 namespace assignsubmission_edulegit\event;
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * The assignsubmission_edulegit assessable uploaded event class.
  *

@@ -51,6 +51,13 @@ class edulegit_submission_manager {
 
         $callbackurl = new \moodle_url('/mod/assign/submission/edulegit/callback.php');
 
+        $autoplagiarismcheck = (bool) $this->config->get_plugin_or_global_config('enable_plagiarism');
+        $autoaicheck = (bool) $this->config->get_plugin_or_global_config('enable_ai');
+        $mustrecordevents = (bool) $this->config->get_plugin_or_global_config('enable_plagiarism');
+        $mustrecordscreen = (bool) $this->config->get_plugin_or_global_config('enable_screen');
+        $mustrecordcamera = (bool) $this->config->get_plugin_or_global_config('enable_camera');
+        $mustrecognizeattentionmap = (bool) $this->config->get_plugin_or_global_config('enable_attention');
+
         $data = [
                 'meta' => [
                         'callbackUrl' => $callbackurl,
@@ -81,12 +88,12 @@ class edulegit_submission_manager {
                         'startedAt' => $assignment->course_startdate ?? null,
                         'finishedAt' => $assignment->course_enddate ?? null,
                         'setting' => [
-                                'autoPlagiarismCheck' => (bool) $this->config->get_plugin_or_global_config('enable_plagiarism'),
-                                'autoAiCheck' => (bool) $this->config->get_plugin_or_global_config('enable_ai'),
-                                'mustRecordEvents' => (bool) $this->config->get_plugin_or_global_config('enable_plagiarism'),
-                                'mustRecordScreen' => (bool) $this->config->get_plugin_or_global_config('enable_screen'),
-                                'mustRecordCamera' => (bool) $this->config->get_plugin_or_global_config('enable_camera'),
-                                'mustRecognizeAttentionMap' => (bool) $this->config->get_plugin_or_global_config('enable_attention'),
+                                'autoPlagiarismCheck' => $autoplagiarismcheck,
+                                'autoAiCheck' => $autoaicheck,
+                                'mustRecordEvents' => $mustrecordevents,
+                                'mustRecordScreen' => $mustrecordscreen,
+                                'mustRecordCamera' => $mustrecordcamera,
+                                'mustRecognizeAttentionMap' => $mustrecognizeattentionmap,
                         ]
                 ]
         ];
@@ -96,9 +103,9 @@ class edulegit_submission_manager {
         $payload = $response->get_payload();
         $responseobject = $payload->data ?? null;
 
-        // Same API service errors
+        // Same API service errors.
         if (!$response->get_success() || empty($payload->success) || !$responseobject) {
-            $error = $payload->error ?? ($response->get_error() ?: 'Edulegit service error');
+            $error = $payload->error ?? ($response->get_error() ?: 'Edulegit service error.');
 
             $edulegitsubmission->status = 0;
             $edulegitsubmission->error = $error;

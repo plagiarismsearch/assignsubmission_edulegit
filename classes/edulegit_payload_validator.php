@@ -27,10 +27,10 @@ namespace assignsubmission_edulegit;
 
 class edulegit_payload_validator {
 
-    private string $auth_key = '';
+    private string $authkey = '';
 
-    public function __construct(string $auth_key) {
-        $this->auth_key = $auth_key;
+    public function __construct(string $authkey) {
+        $this->authkey = $authkey;
     }
 
     public function is_valid(mixed $payload): bool {
@@ -60,10 +60,10 @@ class edulegit_payload_validator {
     }
 
     private function generate_signature(string $data): ?string {
-        if (!$this->auth_key || !$data) {
+        if (!$this->authkey || !$data) {
             return null;
         }
-        return md5(mb_substr($this->auth_key, 0, 10) . $data);
+        return md5(mb_substr($this->authkey, 0, 10) . $data);
     }
 
 }

@@ -29,10 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/assign/locallib.php');
 
-use \core_privacy\local\metadata\collection;
-use \core_privacy\local\request\writer;
-use \core_privacy\local\request\contextlist;
-use \mod_assign\privacy\assign_plugin_request_data;
+use core_privacy\local\metadata\collection;
+use core_privacy\local\request\writer;
+use core_privacy\local\request\contextlist;
+use mod_assign\privacy\assign_plugin_request_data;
 
 /**
  * Privacy class for requesting user data.
@@ -57,7 +57,7 @@ class provider implements
         $detail = [
                 'assignment' => 'privacy:metadata:assignmentpurpose',
                 'submission' => 'privacy:metadata:submissionpurpose',
-                'content' => 'privacy:metadata:textpurpose'
+                'content' => 'privacy:metadata:textpurpose',
         ];
         $collection->add_database_table('assignsubmission_edulegit', $detail, 'privacy:metadata:tablepurpose');
         return $collection;
@@ -126,7 +126,7 @@ class provider implements
                     'course' => $coursecontext->instanceid,
                     'userid' => $userid,
                     'content' => $editortext,
-                    'assignment' => $submission->assignment
+                    'assignment' => $submission->assignment,
             ]);
         }
     }

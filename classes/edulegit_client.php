@@ -27,17 +27,16 @@ namespace assignsubmission_edulegit;
 
 class edulegit_client {
 
-    private string $auth_key = '';
-    //private string $base_url = 'https://api.edulegit.com';
-    private string $base_url = 'https://api.writing-lab.loc';
+    private string $authkey = '';
+    private string $baseurl = 'https://api.edulegit.com';
     private bool $debug = true;
 
-    public function __construct(string $auth_key) {
-        $this->auth_key = $auth_key;
+    public function __construct(string $authkey) {
+        $this->authkey = $authkey;
     }
 
     public function fetch(string $method, string $uri, array $data = []): edulegit_client_response {
-        $url = $this->base_url . $uri;
+        $url = $this->baseurl . $uri;
 
         $curl = curl_init($this->filter_url($url));
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
@@ -48,7 +47,7 @@ class edulegit_client {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $postfields);
         }
         $headers = [
-                'X-API-TOKEN' => $this->auth_key,
+                'X-API-TOKEN' => $this->authkey,
                 'Content-Type' => 'application/json',
                 'User-Agent' => 'Mozilla/5.0 Edulegit plugin/1.0',
         ];

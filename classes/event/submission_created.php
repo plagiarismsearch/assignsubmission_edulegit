@@ -25,6 +25,8 @@
 
 namespace assignsubmission_edulegit\event;
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * The assignsubmission_edulegit submission_created event class.
  *
@@ -66,8 +68,8 @@ class submission_created extends \mod_assign\event\submission_created {
      *
      * @return array
      */
-    public static function get_objectid_mapping() {
+    public static function get_objectid_mapping(): array {
         // No mapping available for 'assignsubmission_edulegit'.
-        return array('db' => 'assignsubmission_edulegit', 'restore' => \core\event\base::NOT_MAPPED);
+        return ['db' => 'assignsubmission_edulegit', 'restore' => \core\event\base::NOT_MAPPED];
     }
 }

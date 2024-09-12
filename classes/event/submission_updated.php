@@ -68,8 +68,8 @@ class submission_updated extends \mod_assign\event\submission_updated {
      *
      * @return array
      */
-    public static function get_objectid_mapping() {
+    public static function get_objectid_mapping(): array {
         // No mapping available for 'assignsubmission_edulegit'.
-        return array('db' => 'assignsubmission_edulegit', 'restore' => \core\event\base::NOT_MAPPED);
+        return ['db' => 'assignsubmission_edulegit', 'restore' => \core\event\base::NOT_MAPPED];
     }
 }

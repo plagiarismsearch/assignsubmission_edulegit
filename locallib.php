@@ -26,6 +26,8 @@
 
 use assignsubmission_edulegit\edulegit_submission_entity;
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->dirroot . '/mod/assign/submission/edulegit/lib.php');
 
 /**
@@ -58,7 +60,7 @@ class assign_submission_edulegit extends assign_submission_plugin {
 
         $name = $this->translate('enable_attention_label');
         $mform->addElement('advcheckbox', 'assignsubmission_edulegit_enable_attention',
-                $name, $this->translate('enable_attention'), null, array(0, 1));
+                $name, $this->translate('enable_attention'), null, [0, 1]);
 
         if ($this->assignment->has_instance()) {
             $mform->setDefault('assignsubmission_edulegit_enable_attention',
@@ -71,7 +73,7 @@ class assign_submission_edulegit extends assign_submission_plugin {
 
         $name = $this->translate('enable_camera_label');
         $mform->addElement('advcheckbox', 'assignsubmission_edulegit_enable_camera',
-                $name, $this->translate('enable_camera'), null, array(0, 1));
+                $name, $this->translate('enable_camera'), null, [0, 1]);
         if ($this->assignment->has_instance()) {
             $mform->setDefault('assignsubmission_edulegit_enable_camera',
                     $config->get_plugin_or_global_config('enable_camera'));
@@ -83,7 +85,7 @@ class assign_submission_edulegit extends assign_submission_plugin {
 
         $name = $this->translate('enable_screen_label');
         $mform->addElement('advcheckbox', 'assignsubmission_edulegit_enable_screen',
-                $name, $this->translate('enable_screen'), null, array(0, 1));
+                $name, $this->translate('enable_screen'), null, [0, 1]);
         if ($this->assignment->has_instance()) {
             $mform->setDefault('assignsubmission_edulegit_enable_screen',
                     $config->get_plugin_or_global_config('enable_screen'));
@@ -95,7 +97,7 @@ class assign_submission_edulegit extends assign_submission_plugin {
 
         $name = $this->translate('enable_plagiarism_label');
         $mform->addElement('advcheckbox', 'assignsubmission_edulegit_enable_plagiarism',
-                $name, $this->translate('enable_plagiarism'), null, array(0, 1));
+                $name, $this->translate('enable_plagiarism'), null, [0, 1]);
         if ($this->assignment->has_instance()) {
             $mform->setDefault('assignsubmission_edulegit_enable_plagiarism',
                     $config->get_plugin_or_global_config('enable_plagiarism'));
@@ -107,7 +109,7 @@ class assign_submission_edulegit extends assign_submission_plugin {
 
         $name = $this->translate('enable_ai_label');
         $mform->addElement('advcheckbox', 'assignsubmission_edulegit_enable_ai',
-                $name, $this->translate('enable_ai'), null, array(0, 1));
+                $name, $this->translate('enable_ai'), null, [0, 1]);
         if ($this->assignment->has_instance()) {
             $mform->setDefault('assignsubmission_edulegit_enable_ai',
                     $config->get_plugin_or_global_config('enable_ai'));
@@ -174,7 +176,7 @@ class assign_submission_edulegit extends assign_submission_plugin {
                 'type' => 'button',
                 'class' => 'btn btn-primary',
                 'target' => '_blank',
-                'title' => $this->translate('open_edulegit_help')
+                'title' => $this->translate('open_edulegit_help'),
         ]);
 
         $html = '<div class="mb-3 row">
@@ -198,7 +200,6 @@ class assign_submission_edulegit extends assign_submission_plugin {
     public function save(stdClass $submissionorgrade, stdClass $data): bool {
         global $DB, $USER;
 
-        // TODO add sync
         $edulegitsubmission = $this->get_edulegit()->get_manager()->sync($submissionorgrade->id);
 
         if (!$edulegitsubmission) {
@@ -212,7 +213,7 @@ class assign_submission_edulegit extends assign_submission_plugin {
                 'other' => [
                         'content' => trim($edulegitsubmission->content),
                         'pathnamehashes' => [],
-                ]
+                ],
         ];
 
         if (!empty($submissionorgrade->userid) && ($submissionorgrade->userid != $USER->id)) {
@@ -239,13 +240,13 @@ class assign_submission_edulegit extends assign_submission_plugin {
         // Adapt $params to be used for the submisssion_xxxxx events.
         unset($params['objectid']);
         unset($params['other']);
-        $params['other'] = array(
+        $params['other'] = [
                 'submissionid' => $submissionorgrade->id,
                 'submissionattempt' => $submissionorgrade->attemptnumber,
                 'submissionstatus' => $submissionorgrade->status,
                 'groupid' => $groupid,
-                'groupname' => $groupname
-        );
+                'groupname' => $groupname,
+        ];
 
         // Trigger submission created event.
         $params['objectid'] = $edulegitsubmission->id;

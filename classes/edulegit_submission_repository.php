@@ -66,7 +66,7 @@ class edulegit_submission_repository {
     public function get_assignment_info(int $assignmentid) {
         $params = ['id' => $assignmentid];
         $sql = "SELECT a.id, a.course, a.name, a.intro, a.duedate, a.allowsubmissionsfromdate, a.gradingduedate, a.activity,
-                c.shortname AS course_shortname, c.fullname AS course_fullname, c.summary AS course_summary, 
+                c.shortname AS course_shortname, c.fullname AS course_fullname, c.summary AS course_summary,
                 c.startdate AS course_startdate, c.enddate AS course_enddate
                 FROM {assign} a
                 JOIN {course} c ON c.id = a.course
