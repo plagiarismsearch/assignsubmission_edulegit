@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/assign/submission/edulegit/db" VERSION="2024090901" COMMENT="XMLDB file for Moodle mod/assign/submission/edulegit"
+<XMLDB PATH="mod/assign/submission/edulegit/db" VERSION="2024091202" COMMENT="XMLDB file for Moodle mod/assign/submission/edulegit"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
 >
