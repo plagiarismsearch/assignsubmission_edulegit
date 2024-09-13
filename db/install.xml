@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/assign/submission/edulegit/db" VERSION="2024091202" COMMENT="XMLDB file for Moodle mod/assign/submission/edulegit"
+<XMLDB PATH="mod/assign/submission/edulegit/db" VERSION="2024091203" COMMENT="XMLDB file for Moodle mod/assign/submission/edulegit"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
 >
@@ -11,22 +11,22 @@
         <FIELD NAME="submission" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="title" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Document title"/>
         <FIELD NAME="content" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Last Html content"/>
-        <FIELD NAME="document_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Document id"/>
-        <FIELD NAME="task_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Task id"/>
-        <FIELD NAME="task_user_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="User task id"/>
-        <FIELD NAME="user_id" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Task id"/>
-        <FIELD NAME="user_key" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="User time token key"/>
-        <FIELD NAME="base_url" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Base URL"/>
+        <FIELD NAME="documentid" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Document id"/>
+        <FIELD NAME="taskid" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Task id"/>
+        <FIELD NAME="taskuserid" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="User task id"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Task id"/>
+        <FIELD NAME="userkey" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="User time token key"/>
+        <FIELD NAME="baseurl" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Base URL"/>
         <FIELD NAME="url" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Document view URL"/>
-        <FIELD NAME="auth_key" TYPE="char" LENGTH="64" NOTNULL="false" SEQUENCE="false" COMMENT="Document key"/>
+        <FIELD NAME="authkey" TYPE="char" LENGTH="64" NOTNULL="false" SEQUENCE="false" COMMENT="Document key"/>
         <FIELD NAME="score" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="EduLegit score"/>
         <FIELD NAME="plagiarism" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="Percentage of plagiarism detected"/>
-        <FIELD NAME="ai_rate" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="The total percentage of AI generated passages in the text"/>
-        <FIELD NAME="ai_probability" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="The percentage of likelihood that the whole text was AI generated"/>
+        <FIELD NAME="airate" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="The total percentage of AI generated passages in the text"/>
+        <FIELD NAME="aiprobability" TYPE="number" LENGTH="5" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="2" COMMENT="The percentage of likelihood that the whole text was AI generated"/>
         <FIELD NAME="status" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" DEFAULT="0" />
         <FIELD NAME="error" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" COMMENT="Same error for user"/>
-        <FIELD NAME="created_at" TYPE="int" LENGTH="10" SEQUENCE="false" NOTNULL="true" DEFAULT="0" />
-        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" SEQUENCE="false" NOTNULL="true" DEFAULT="0" />
+        <FIELD NAME="createdat" TYPE="int" LENGTH="10" SEQUENCE="false" NOTNULL="true" DEFAULT="0" />
+        <FIELD NAME="updatedat" TYPE="int" LENGTH="10" SEQUENCE="false" NOTNULL="true" DEFAULT="0" />
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="The unique id for this submission."/>

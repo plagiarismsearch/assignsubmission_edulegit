@@ -198,18 +198,18 @@ class edulegit_submission_manager {
 
         $edulegitsubmission->title = $data->taskDocument->title ?? null;
         $edulegitsubmission->content = $data->taskDocument->content ?? null;
-        $edulegitsubmission->document_id = $data->taskDocument->id ?? 0;
-        $edulegitsubmission->task_id = $data->task->id ?? ($data->taskUser->taskId ?? 0);
-        $edulegitsubmission->task_user_id = $data->taskUser->id ?? ($data->taskUser->taskUserId);
+        $edulegitsubmission->documentid = $data->taskDocument->id ?? 0;
+        $edulegitsubmission->taskid = $data->task->id ?? ($data->taskUser->taskId ?? 0);
+        $edulegitsubmission->taskuserid = $data->taskUser->id ?? ($data->taskUser->taskUserId);
         $edulegitsubmission->url = $data->sharedDocument->viewUrl ?? ($data->sharedDocument->pdfUrl ?? null);
-        $edulegitsubmission->auth_key = $data->sharedDocument->authKey ?? null;
+        $edulegitsubmission->authkey = $data->sharedDocument->authKey ?? null;
         $edulegitsubmission->score = $data->taskDocument->score ?? null;
         $edulegitsubmission->plagiarism = $data->taskDocument->plagiarism ?? null;
-        $edulegitsubmission->ai_rate = $data->taskDocument->aiAverageProbability ?? null;
-        $edulegitsubmission->ai_probability = $data->taskDocument->aiProbability ?? null;
-        $edulegitsubmission->base_url = $data->baseUrl ?? null;
-        $edulegitsubmission->user_id = $data->user->id ?? null;
-        $edulegitsubmission->user_key = $data->user->loginTimeToken ?? null;
+        $edulegitsubmission->airate = $data->taskDocument->aiAverageProbability ?? null;
+        $edulegitsubmission->aiprobability = $data->taskDocument->aiProbability ?? null;
+        $edulegitsubmission->baseurl = $data->baseUrl ?? null;
+        $edulegitsubmission->userid = $data->user->id ?? null;
+        $edulegitsubmission->userkey = $data->user->loginTimeToken ?? null;
 
         $edulegitsubmission->error = null;
         $edulegitsubmission->status = 1;

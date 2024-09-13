@@ -60,32 +60,32 @@ class edulegit_submission_entity {
     /**
      * @var int|null The ID of the document stored in the EduLegit system.
      */
-    public ?int $document_id = null;
+    public ?int $documentid = null;
 
     /**
      * @var int|null The task ID related to this submission.
      */
-    public ?int $task_id = null;
+    public ?int $taskid = null;
 
     /**
      * @var int|null The task user ID associated with the submission.
      */
-    public ?int $task_user_id = null;
+    public ?int $taskuserid = null;
 
     /**
      * @var int|null The user ID of the submitter.
      */
-    public ?int $user_id = null;
+    public ?int $userid = null;
 
     /**
      * @var string|null The user key for login access.
      */
-    public ?string $user_key = null;
+    public ?string $userkey = null;
 
     /**
      * @var string|null The base URL to access the document.
      */
-    public ?string $base_url = null;
+    public ?string $baseurl = null;
 
     /**
      * @var string|null The URL of the submission.
@@ -95,7 +95,7 @@ class edulegit_submission_entity {
     /**
      * @var string|null The authentication key for the submission.
      */
-    public ?string $auth_key = null;
+    public ?string $authkey = null;
 
     /**
      * @var float|null The score given to the submission.
@@ -110,12 +110,12 @@ class edulegit_submission_entity {
     /**
      * @var float|null The AI rate for the submission.
      */
-    public ?float $ai_rate = null;
+    public ?float $airate = null;
 
     /**
      * @var float|null The probability that AI tools were used.
      */
-    public ?float $ai_probability = null;
+    public ?float $aiprobability = null;
 
     /**
      * @var int The current status of the submission.
@@ -130,12 +130,12 @@ class edulegit_submission_entity {
     /**
      * @var int|null The timestamp when the submission was created.
      */
-    public ?int $created_at = null;
+    public ?int $createdat = null;
 
     /**
      * @var int|null The timestamp when the submission was last updated.
      */
-    public ?int $updated_at = null;
+    public ?int $updatedat = null;
 
     /**
      * Constructor for the submission entity.
@@ -164,8 +164,8 @@ class edulegit_submission_entity {
      *
      * @return string The base URL for the document.
      */
-    public function get_base_url(): string {
-        return $this->base_url ?: 'https://app.edulegit.com/document/' . $this->document_id;
+    public function get_baseurl(): string {
+        return $this->baseurl ?: 'https://app.edulegit.com/document/' . $this->documentid;
     }
 
     /**
@@ -183,11 +183,11 @@ class edulegit_submission_entity {
      * @return string The URL for user login with the user key.
      */
     public function get_user_login_url(): string {
-        if (empty($this->user_key)) {
+        if (empty($this->userkey)) {
             return '';
         }
 
-        return $this->get_base_url() . '?tt=' . $this->user_key;
+        return $this->get_baseurl() . '?tt=' . $this->userkey;
     }
 
     /**
@@ -196,7 +196,7 @@ class edulegit_submission_entity {
      * @return string The PDF access URL with the authentication key.
      */
     public function get_pdf_url(): string {
-        return $this->get_base_url() . '/pdf?key=' . $this->auth_key;
+        return $this->get_baseurl() . '/pdf?key=' . $this->authkey;
     }
 
     /**
@@ -205,7 +205,7 @@ class edulegit_submission_entity {
      * @return string The HTML access URL with the authentication key.
      */
     public function get_html_url(): string {
-        return $this->get_base_url() . '/html?key=' . $this->auth_key;
+        return $this->get_baseurl() . '/html?key=' . $this->authkey;
     }
 
     /**
@@ -214,7 +214,7 @@ class edulegit_submission_entity {
      * @return string The TXT access URL with the authentication key.
      */
     public function get_txt_url(): string {
-        return $this->get_base_url() . '/txt?key=' . $this->auth_key;
+        return $this->get_baseurl() . '/txt?key=' . $this->authkey;
     }
 
     /**
@@ -223,7 +223,7 @@ class edulegit_submission_entity {
      * @return string The DOCX access URL with the authentication key.
      */
     public function get_docx_url(): string {
-        return $this->get_base_url() . '/docx?key=' . $this->auth_key;
+        return $this->get_baseurl() . '/docx?key=' . $this->authkey;
     }
 
 }

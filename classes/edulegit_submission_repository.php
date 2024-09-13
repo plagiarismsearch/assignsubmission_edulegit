@@ -95,8 +95,8 @@ class edulegit_submission_repository {
      * @return int|false The inserted record's ID or false on failure.
      */
     public function insert_submission(edulegit_submission_entity $edulegitsubmission) {
-        $edulegitsubmission->created_at ??= time();
-        $edulegitsubmission->updated_at ??= time();
+        $edulegitsubmission->createdat ??= time();
+        $edulegitsubmission->updatedat ??= time();
         return $this->db->insert_record(self::EDULEGIT_SUBMISSION_TABLE_NAME, $edulegitsubmission);
     }
 
@@ -107,7 +107,7 @@ class edulegit_submission_repository {
      * @return bool True on success, false on failure.
      */
     public function update_submission(edulegit_submission_entity $edulegitsubmission): bool {
-        $edulegitsubmission->updated_at = time();
+        $edulegitsubmission->updatedat = time();
         return $this->db->update_record(self::EDULEGIT_SUBMISSION_TABLE_NAME, $edulegitsubmission);
     }
 

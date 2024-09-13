@@ -101,7 +101,7 @@ class edulegit_callback {
             $submission->url = $data->url;
         }
         if (isset($data->authKey)) {
-            $submission->auth_key = $data->authKey;
+            $submission->authkey = $data->authKey;
         }
         if (isset($data->score)) {
             $submission->score = $data->score;
@@ -110,13 +110,13 @@ class edulegit_callback {
             $submission->plagiarism = $data->plagiarism;
         }
         if (isset($data->aiAverageProbability)) {
-            $submission->ai_rate = $data->aiAverageProbability;
+            $submission->airate = $data->aiAverageProbability;
         }
         if (isset($data->aiProbability)) {
-            $submission->ai_probability = $data->aiProbability;
+            $submission->aiprobability = $data->aiProbability;
         }
         if (isset($data->loginTimeToken)) {
-            $submission->user_key = $data->loginTimeToken;
+            $submission->userkey = $data->loginTimeToken;
         }
 
         return $this->repository->update_submission($submission) ? $submission->id : null;
