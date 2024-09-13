@@ -25,8 +25,19 @@
 
 namespace assignsubmission_edulegit;
 
+/**
+ * Class edulegit_submission_menu_builder
+ *
+ * Builds a menu for EduLegit submissions, providing options to view the submission in various formats.
+ */
 class edulegit_submission_menu_builder {
 
+    /**
+     * Builds the action menu for the given EduLegit submission.
+     *
+     * @param edulegit_submission_entity $edulegitsubmission The EduLegit submission entity to build the menu for.
+     * @return \action_menu The built action menu.
+     */
     public function build(edulegit_submission_entity $edulegitsubmission): \action_menu {
         $emptyicon = new \pix_icon('', '');
 
@@ -95,8 +106,8 @@ class edulegit_submission_menu_builder {
     /**
      * Returns a localized string.
      *
-     * @param string $identifier The key identifier for the localized string
-     * @return \lang_string|string
+     * @param string $identifier The key identifier for the localized string.
+     * @return \lang_string|string The localized string.
      */
     private function translate(string $identifier) {
         return get_string($identifier, 'assignsubmission_edulegit');

@@ -17,6 +17,8 @@
 /**
  * The assignsubmission_edulegit API client class.
  *
+ * Handles communication with the EduLegit API for Moodle assignments.
+ *
  * @package   assignsubmission_edulegit
  * @author    Alex Crosby <developer@edulegit.com>
  * @copyright @2024 EduLegit.com
@@ -25,16 +27,51 @@
 
 namespace assignsubmission_edulegit;
 
+/**
+ * Class edulegit_client
+ *
+ * This class is responsible for sending requests to the EduLegit API and managing the API connection.
+ */
 class edulegit_client {
 
+    /**
+     * API authentication key.
+     *
+     * @var string
+     */
     private string $authkey = '';
+
+    /**
+     * Base URL for the EduLegit API.
+     *
+     * @var string
+     */
     private string $baseurl = 'https://api.edulegit.com';
+
+    /**
+     * Enables or disables debugging.
+     *
+     * @var bool
+     */
     private bool $debug = true;
 
+    /**
+     * Constructor for the edulegit_client class.
+     *
+     * @param string $authkey The authentication key for API access.
+     */
     public function __construct(string $authkey) {
         $this->authkey = $authkey;
     }
 
+    /**
+     * Sends a request to the EduLegit API.
+     *
+     * @param string $method The HTTP method to use (e.g., 'POST', 'GET').
+     * @param string $uri The URI of the API endpoint.
+     * @param array $data The data to be sent with the request.
+     * @return edulegit_client_response The API response.
+     */
     public function fetch(string $method, string $uri, array $data = []): edulegit_client_response {
         $url = $this->baseurl . $uri;
 
@@ -74,6 +111,12 @@ class edulegit_client {
         return new edulegit_client_response((string) $body, (array) $info, (string) $error, $url);
     }
 
+    /**
+     * Filters and encodes a URL.
+     *
+     * @param string $url The URL to be filtered.
+     * @return string The filtered URL.
+     */
     private function filter_url(string $url) {
         return str_replace(
                 ['%3A', '%2F', '%3F', '%3D', '%26', '%40', '%25', '%23'],
@@ -82,10 +125,22 @@ class edulegit_client {
         );
     }
 
+    /**
+     * Builds the post fields for the cURL request.
+     *
+     * @param array $data The data to be encoded and sent.
+     * @return string The JSON-encoded data.
+     */
     private function build_post_fields(array $data) {
         return edulegit_helper::json_encode($data);
     }
 
+    /**
+     * Constructs the HTTP headers for the request.
+     *
+     * @param array $headers The array of headers (key-value pairs).
+     * @return array The formatted headers.
+     */
     protected function build_headers(array $headers) {
         $result = [];
         foreach ($headers as $key => $value) {
@@ -94,6 +149,12 @@ class edulegit_client {
         return $result;
     }
 
+    /**
+     * Initializes a Moodle assignment via the API.
+     *
+     * @param array $data The data to initialize the assignment.
+     * @return edulegit_client_response The API response.
+     */
     public function init_assignment($data): edulegit_client_response {
         return $this->fetch('POST', '/init-moodle-assignment', $data);
     }

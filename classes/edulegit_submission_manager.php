@@ -25,12 +25,35 @@
 
 namespace assignsubmission_edulegit;
 
+/**
+ * Class edulegit_submission_manager
+ *
+ * This class manages the interaction between Moodle submissions and the EduLegit system.
+ */
 class edulegit_submission_manager {
 
+    /**
+     * @var edulegit_config Configuration object for the EduLegit plugin.
+     */
     protected edulegit_config $config;
+
+    /**
+     * @var edulegit_client Client for communicating with the EduLegit API.
+     */
     protected edulegit_client $client;
+
+    /**
+     * @var edulegit_submission_repository Repository for handling submission data.
+     */
     protected edulegit_submission_repository $repository;
 
+    /**
+     * Constructor for the submission manager.
+     *
+     * @param edulegit_config $config Configuration object for the EduLegit plugin.
+     * @param edulegit_client $client Client for communicating with the EduLegit API.
+     * @param edulegit_submission_repository $repository Repository for handling submission data.
+     */
     public function __construct(edulegit_config $config, edulegit_client $client,
             edulegit_submission_repository $repository) {
         $this->config = $config;
@@ -38,6 +61,13 @@ class edulegit_submission_manager {
         $this->repository = $repository;
     }
 
+    /**
+     * Initializes a submission with EduLegit.
+     *
+     * @param object $submission The Moodle submission object.
+     * @param array $options Additional options, such as user information.
+     * @return edulegit_submission_entity|null The EduLegit submission entity or null if initialization fails.
+     */
     public function init($submission, $options = []): ?edulegit_submission_entity {
         if (empty($submission) || empty($submission->assignment) || empty($submission->userid)) {
             return null;
@@ -94,8 +124,8 @@ class edulegit_submission_manager {
                                 'mustRecordScreen' => $mustrecordscreen,
                                 'mustRecordCamera' => $mustrecordcamera,
                                 'mustRecognizeAttentionMap' => $mustrecognizeattentionmap,
-                        ]
-                ]
+                        ],
+                ],
         ];
 
         $response = $this->client->init_assignment($data);
@@ -103,9 +133,9 @@ class edulegit_submission_manager {
         $payload = $response->get_payload();
         $responseobject = $payload->data ?? null;
 
-        // Same API service errors.
+        // Handle API service errors.
         if (!$response->get_success() || empty($payload->success) || !$responseobject) {
-            $error = $payload->error ?? ($response->get_error() ?: 'Edulegit service error.');
+            $error = $payload->error ?? ($response->get_error() ?: 'EduLegit service error.');
 
             $edulegitsubmission->status = 0;
             $edulegitsubmission->error = $error;
@@ -116,12 +146,24 @@ class edulegit_submission_manager {
         return $this->sync_submission_edulegit_response($submission, $responseobject);
     }
 
+    /**
+     * Synchronizes a submission with EduLegit by its id.
+     *
+     * @param int $submissionid The ID of the submission to synchronize.
+     * @return edulegit_submission_entity|null The EduLegit submission entity or null if synchronization fails.
+     */
     public function sync(int $submissionid): ?edulegit_submission_entity {
         $edulegitsubmission = $this->repository->get_submission($submissionid);
 
         return $edulegitsubmission;
     }
 
+    /**
+     * Retrieves or creates an EduLegit submission entity.
+     *
+     * @param object $submission The Moodle submission object.
+     * @return edulegit_submission_entity|null The EduLegit submission entity or null if creation fails.
+     */
     private function get_or_create_edulegit_submission($submission): ?edulegit_submission_entity {
         $edulegitsubmission = $this->repository->get_submission($submission->id);
         if ($edulegitsubmission) {
@@ -141,6 +183,13 @@ class edulegit_submission_manager {
         return $edulegitsubmission;
     }
 
+    /**
+     * Synchronizes the EduLegit submission entity with the data from response.
+     *
+     * @param object $submission The Moodle submission object.
+     * @param object $data The data received from the EduLegit response.
+     * @return edulegit_submission_entity|null The updated EduLegit submission entity or null if update fails.
+     */
     private function sync_submission_edulegit_response($submission, $data): ?edulegit_submission_entity {
         $edulegitsubmission = $this->get_or_create_edulegit_submission($submission);
         if (!$edulegitsubmission) {
@@ -167,5 +216,4 @@ class edulegit_submission_manager {
 
         return $this->repository->update_submission($edulegitsubmission) ? $edulegitsubmission : null;
     }
-
 }

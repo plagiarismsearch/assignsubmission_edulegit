@@ -25,14 +25,41 @@
 
 namespace assignsubmission_edulegit;
 
+/**
+ * Callback handler for the edulegit plugin.
+ *
+ * This class handles incoming payloads and processes specific events
+ * related to the EduLegit webhook request.
+ *
+ * @package   assignsubmission_edulegit
+ * @author    Alex Crosby <developer@edulegit.com>
+ * @copyright @2024 EduLegit.com
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class edulegit_callback {
 
+    /**
+     * Instance of the edulegit submission repository.
+     *
+     * @var edulegit_submission_repository
+     */
     protected edulegit_submission_repository $repository;
 
+    /**
+     * Constructor for edulegit_callback class.
+     *
+     * @param edulegit_submission_repository|null $repository An instance of edulegit_submission_repository or null.
+     */
     public function __construct(?edulegit_submission_repository $repository = null) {
         $this->repository = $repository ?? new edulegit_submission_repository();
     }
 
+    /**
+     * Handles incoming payload and processes the event.
+     *
+     * @param object $payload The payload object containing the event and data.
+     * @return mixed Returns the result of the event handling or null if the event is not recognized.
+     */
     public function handle(object $payload) {
         $event = $payload->event ?? null;
         $data = $payload->data ?? [];
@@ -43,6 +70,12 @@ class edulegit_callback {
         return null;
     }
 
+    /**
+     * Synchronizes task user information with the repository.
+     *
+     * @param object $data The data object containing the task user's information.
+     * @return int|null Returns the submission ID if successful, or null if not.
+     */
     private function sync_task_user($data) {
         $id = $data->externalId ?? null;
         if (!$id) {
@@ -88,5 +121,4 @@ class edulegit_callback {
 
         return $this->repository->update_submission($submission) ? $submission->id : null;
     }
-
 }

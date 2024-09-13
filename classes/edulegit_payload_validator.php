@@ -15,9 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The assignsubmission_edulegit core class.
+ * Payload validator for the assignsubmission_edulegit plugin.
  *
  * @package   assignsubmission_edulegit
+ * @subpackage validation
  * @author    Alex Crosby <developer@edulegit.com>
  * @copyright @2024 EduLegit.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,14 +26,35 @@
 
 namespace assignsubmission_edulegit;
 
+/**
+ * Class edulegit_payload_validator
+ *
+ * This class validates and verifies the signature of payloads sent to the plugin.
+ */
 class edulegit_payload_validator {
 
+    /**
+     * The authorization key used for signature generation.
+     *
+     * @var string
+     */
     private string $authkey = '';
 
+    /**
+     * Constructor for the payload validator.
+     *
+     * @param string $authkey The authorization key used to sign payloads.
+     */
     public function __construct(string $authkey) {
         $this->authkey = $authkey;
     }
 
+    /**
+     * Validates the payload structure to ensure required fields are present.
+     *
+     * @param mixed $payload The payload to be validated.
+     * @return bool True if the payload is valid, false otherwise.
+     */
     public function is_valid(mixed $payload): bool {
         if (!is_object($payload)) {
             return false;
@@ -45,9 +67,14 @@ class edulegit_payload_validator {
         }
 
         return true;
-
     }
 
+    /**
+     * Validates the payload signature to ensure the data integrity.
+     *
+     * @param object $payload The payload object containing the signature.
+     * @return bool True if the signature matches, false otherwise.
+     */
     public function is_signed(object $payload): bool {
         if (!$this->is_valid($payload)) {
             return false;
@@ -56,9 +83,14 @@ class edulegit_payload_validator {
         $signature = $this->generate_signature($payload->event . $payload->timestamp);
 
         return $signature && $signature === $payload->signature;
-
     }
 
+    /**
+     * Generates a signature using the auth key and data provided.
+     *
+     * @param string $data The data used to generate the signature.
+     * @return string|null The generated signature, or null if authkey or data is missing.
+     */
     private function generate_signature(string $data): ?string {
         if (!$this->authkey || !$data) {
             return null;

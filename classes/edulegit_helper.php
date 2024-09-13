@@ -15,7 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The assignsubmission_edulegit core class.
+ * The helper class for the assignsubmission_edulegit plugin.
+ *
+ * Provides utility methods for JSON encoding and decoding.
  *
  * @package   assignsubmission_edulegit
  * @author    Alex Crosby <developer@edulegit.com>
@@ -25,12 +27,29 @@
 
 namespace assignsubmission_edulegit;
 
+/**
+ * Class edulegit_helper
+ *
+ * This class provides helper methods such as JSON encoding and decoding, which are used throughout the plugin.
+ */
 class edulegit_helper {
 
+    /**
+     * Decode a JSON string into a PHP variable.
+     *
+     * @param string $json The JSON string to decode.
+     * @return mixed The decoded value, typically an object or an array.
+     */
     public static function json_decode(string $json): mixed {
         return json_decode($json, false, 512, JSON_INVALID_UTF8_SUBSTITUTE);
     }
 
+    /**
+     * Encode a PHP variable into a JSON string.
+     *
+     * @param mixed $data The data to encode as JSON.
+     * @return string|false The JSON-encoded string, or false on failure.
+     */
     public static function json_encode(mixed $data): string|false {
         return json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     }

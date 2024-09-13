@@ -434,8 +434,18 @@ class assign_submission_edulegit extends assign_submission_plugin {
         return $this->get_edulegit()->get_repository()->get_submission($submissionid);
     }
 
+    /**
+     * Edulegit core instance.
+     *
+     * @var \assignsubmission_edulegit\edulegit_core|null
+     */
     private ?\assignsubmission_edulegit\edulegit_core $edulegit = null;
 
+    /**
+     * Lazy load the edulegit core instance.
+     *
+     * @return \assignsubmission_edulegit\edulegit_core
+     */
     public function get_edulegit(): \assignsubmission_edulegit\edulegit_core {
         if ($this->edulegit === null) {
             $this->edulegit = new \assignsubmission_edulegit\edulegit_core($this->get_config());

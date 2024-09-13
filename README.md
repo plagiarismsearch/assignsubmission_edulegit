@@ -11,8 +11,7 @@ EduLegit workspace is a Moodle assignment submission plugin
 Author: Alex Crosby <developer@plagiarismsearch.com>  
 Copyright: Edulegit.com, https://edulegit.com
 
-EduLegit is AI management control system, teacher assistant and student supervision
-
+EduLegit is an innovative AI management control system that aims to assist teachers in supervising students and ensuring seamless workflow and increased student involvement in the learning process. The supervision is handled with the most advanced tools, including but not limited to:
 * AI motion monitoring
 * Al control alerts
 * AI text check

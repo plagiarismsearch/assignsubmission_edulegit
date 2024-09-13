@@ -25,30 +25,123 @@
 
 namespace assignsubmission_edulegit;
 
+/**
+ * Class edulegit_submission_entity
+ *
+ * This class represents the submission entity for the EduLegit plugin.
+ */
 class edulegit_submission_entity {
 
+    /**
+     * @var int|null The unique identifier for the submission entity.
+     */
     public ?int $id = null;
+
+    /**
+     * @var int The ID of the associated assignment.
+     */
     public int $assignment = 0;
+
+    /**
+     * @var int The ID of the submission.
+     */
     public int $submission = 0;
+
+    /**
+     * @var string|null The title of the submission.
+     */
     public ?string $title = null;
+
+    /**
+     * @var string|null The content of the submission.
+     */
     public ?string $content = null;
+
+    /**
+     * @var int|null The ID of the document stored in the EduLegit system.
+     */
     public ?int $document_id = null;
+
+    /**
+     * @var int|null The task ID related to this submission.
+     */
     public ?int $task_id = null;
+
+    /**
+     * @var int|null The task user ID associated with the submission.
+     */
     public ?int $task_user_id = null;
+
+    /**
+     * @var int|null The user ID of the submitter.
+     */
     public ?int $user_id = null;
+
+    /**
+     * @var string|null The user key for login access.
+     */
     public ?string $user_key = null;
+
+    /**
+     * @var string|null The base URL to access the document.
+     */
     public ?string $base_url = null;
+
+    /**
+     * @var string|null The URL of the submission.
+     */
     public ?string $url = null;
+
+    /**
+     * @var string|null The authentication key for the submission.
+     */
     public ?string $auth_key = null;
+
+    /**
+     * @var float|null The score given to the submission.
+     */
     public ?float $score = null;
+
+    /**
+     * @var float|null The plagiarism score of the submission.
+     */
     public ?float $plagiarism = null;
+
+    /**
+     * @var float|null The AI rate for the submission.
+     */
     public ?float $ai_rate = null;
+
+    /**
+     * @var float|null The probability that AI tools were used.
+     */
     public ?float $ai_probability = null;
+
+    /**
+     * @var int The current status of the submission.
+     */
     public int $status = 0;
+
+    /**
+     * @var string|null Any error messages associated with the submission.
+     */
     public ?string $error = null;
+
+    /**
+     * @var int|null The timestamp when the submission was created.
+     */
     public ?int $created_at = null;
+
+    /**
+     * @var int|null The timestamp when the submission was last updated.
+     */
     public ?int $updated_at = null;
 
+    /**
+     * Constructor for the submission entity.
+     *
+     * @param array|object $values An array or object of key-value pairs to initialize the entity.
+     */
     public function __construct(array|object $values = []) {
         foreach ($values as $key => $value) {
             if (property_exists($this, $key)) {
@@ -57,18 +150,38 @@ class edulegit_submission_entity {
         }
     }
 
+    /**
+     * Checks if the submission content is empty.
+     *
+     * @return bool True if the content is empty, false otherwise.
+     */
     public function is_empty(): bool {
         return empty($this->content);
     }
 
+    /**
+     * Retrieves the base URL for the document.
+     *
+     * @return string The base URL for the document.
+     */
     public function get_base_url(): string {
         return $this->base_url ?: 'https://app.edulegit.com/document/' . $this->document_id;
     }
 
+    /**
+     * Retrieves the URL to view the submission.
+     *
+     * @return string The URL to view the submission.
+     */
     public function get_view_url(): string {
         return $this->url ?? '';
     }
 
+    /**
+     * Retrieves the URL for user login with a token.
+     *
+     * @return string The URL for user login with the user key.
+     */
     public function get_user_login_url(): string {
         if (empty($this->user_key)) {
             return '';
@@ -77,18 +190,38 @@ class edulegit_submission_entity {
         return $this->get_base_url() . '?tt=' . $this->user_key;
     }
 
+    /**
+     * Retrieves the URL to access the PDF version of the document.
+     *
+     * @return string The PDF access URL with the authentication key.
+     */
     public function get_pdf_url(): string {
         return $this->get_base_url() . '/pdf?key=' . $this->auth_key;
     }
 
+    /**
+     * Retrieves the URL to access the HTML version of the document.
+     *
+     * @return string The HTML access URL with the authentication key.
+     */
     public function get_html_url(): string {
         return $this->get_base_url() . '/html?key=' . $this->auth_key;
     }
 
+    /**
+     * Retrieves the URL to access the TXT version of the document.
+     *
+     * @return string The TXT access URL with the authentication key.
+     */
     public function get_txt_url(): string {
         return $this->get_base_url() . '/txt?key=' . $this->auth_key;
     }
 
+    /**
+     * Retrieves the URL to access the DOCX version of the document.
+     *
+     * @return string The DOCX access URL with the authentication key.
+     */
     public function get_docx_url(): string {
         return $this->get_base_url() . '/docx?key=' . $this->auth_key;
     }
